@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Asynchronous Modal Dialog - Demo</title>
+
+<style>
+body {
+	margin: 1em 13px 3em;
+	font-family: Arial, sans-serif;
+	font-size: 0.9em;
+	color: black;
+	background-color: #EEE;
+}
+
+h1 {
+	color: #C00;
+	text-align: center;
+	font-size: 2em;
+	font-weight: bold;
+}
+
+h2 {
+	margin-left: 0.5em;
+	font-size: 1.8em;
+	font-weight: bold;
+	color: #333;
+}
+
+p {
+	margin: 0.8em 5px;
+}
+
+pre {
+	border: 2px dashed #FA0;
+	border-radius: 5px;
+	padding: 1em 0.8em;
+	background-color: #EEC;
+	font-family: monospace;
+	white-space: pre-wrap;
+	margin: 1em 0px;
+	font-size: 1em;
+	color: #232;
+}
+
+code {
+	font-family: monospace;
+	font-size: 1em;
+	color: #225;
+}
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css">
+<script type="text/javascript" src="script.js"></script>
+
+</head>
+<body>
+
+<h1>Asynchronous Modal Dialog - Live Demo</h1>
+
+<b>Note:</b>
+<p>To see the full documentation, please refer to the README.md file.</p>
+<p>A shorter and essential reference is also available at the beginning of the script.js file.</p>
+
+<hr>
+
+<h2>First example</h2>
+
+<p>Basic alert message.</p>
+
+<pre>
+&lt;script type="text/javascript"&gt;
+dialogSettings = {
+  defType: "confirm",
+  defTitle: "Conferma",
+  defContent: "Contenuto non impostato",
+  okText: "Accetta",
+  continueText: "Continua",
+  cancelText: "Annulla"
+};
+&lt;/script&gt;
+
+&lt;button onclick="dialog()"&gt;Try it&lt;/button&gt;
+</pre>
+
+<div>In action:</div>
+
+<button onclick="dialogSettings = {defType: 'confirm', defTitle: 'Conferma', defContent: 'Contenuto non impostato', okText: 'Accetta', continueText: 'Continua', cancelText: 'Annulla'}; dialog();">Try it</button>
+
+<h2>Second example</h2>
+
+<p>Use of arguments.</p>
+
+<pre>
+&lt;script type="text/javascript"&gt;
+var parameters = {
+  type: "prompt",
+  title: "Example",
+  content: "What's your name?",
+}
+&lt;/script&gt;
+
+&lt;button onclick="dialog(parameters)"&gt;Try it&lt;/button&gt;
+</pre>
+
+<div>In action:</div>
+
+<button onclick="dialogSettings=undefined; dialog({type: 'prompt', title: 'Example', content: 'What\'s your name?'})">Try it</button>
+
+<h2>Third example</h2>
+
+<p>Advanced use: using callbacks, ids and vars.</p>
+
+<pre>
+&lt;script type="text/javascript"&gt;
+var parameters = {
+  type: "prompt",
+  title: "Example",
+  content: "What's your name?",
+  callback: check,
+  id: "first",
+  vars: {foo: "bar"}
+}
+
+function check(obj) {
+  if (obj.id=="first" && obj.action)
+  dialog({
+    type: "confirm",
+    content: "Do you want your name printed on a message?",
+    vars: {foo: obj.vars.foo, name: obj.value!=""?obj.value:"Unnamed"},
+    callback: check,
+    id: "second"
+  });
+  else if (obj.id=="second" && obj.action)
+  dialog({
+    //NB: default type is alert, so we don't need to specify it
+    title: "Print out",
+    content: "Hello "+obj.vars.name+"\nFoo: "+obj.vars.foo
+  });
+}
+&lt;/script&gt;
+
+&lt;button onclick="dialog(parameters)"&gt;Try it&lt;/button&gt;
+</pre>
+
+<script type="text/javascript">
+function check(obj) {
+  if (obj.id=="first" && obj.action)
+  dialog({
+    type: "confirm",
+    content: "Do you want your name printed on a message?",
+    vars: {foo: obj.vars.foo, name: obj.value!=""?obj.value:"Unnamed"},
+    callback: check,
+    id: "second"
+  });
+  else if (obj.id=="second" && obj.action)
+  dialog({
+    //NB: default type is alert, so we don't need to specify it
+    title: "Print out",
+    content: "Hello "+obj.vars.name+"\nFoo: "+obj.vars.foo
+  });
+}
+</script>
+
+<div>In action:</div>
+
+<button onclick="dialogSettings=undefined; dialog({type: 'prompt', title: 'Example', content: 'What\'s your name?', callback: check, id: 'first', vars: {foo: 'bar'}})">Try it</button>
+
+</body>
+</html>

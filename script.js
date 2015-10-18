@@ -1,6 +1,6 @@
 /*
 
-Asynchronous Modal Dialog Window, a utility which can replace the default JavaScript dialog windows (alert(); prompt(); confirm())
+Asynchronous Modal Dialog Window, a utility which can replace the default JavaScript dialog windows (alert(), prompt(), confirm())
 
 The program integrates 3 elements.
 
@@ -38,14 +38,11 @@ value			String		if the type of the requested dialog window was "prompt" it will 
 ================================================================================================
 
 Version: 2.0.0
-Made by: Matteo Bernardini, @mttbernardini
-Shared with license CC, by-nc-sa:
-Attribution: You are free to distribute this code, download it and use it, but you must declare who's the owner.
-No Commercial: You aren't allowed to use this code for commercial or lucrative purposes.
-Share Alike: you are free to edit this code as you like, but you must include this commented part which includes the description, the version, the owner, and the license which you cannot modify.
+(c) Matteo Bernardini 2015
+Shared with MIT license (refer to the LICENSE file for further information)
 
-To see the integral declaration of the license see here: http://creativecommons.org/licenses/by-nc-sa/3.0/
-Check this project on GitHub: http://github.com/mttbernardin/dialog
+Check this project on GitHub:
+http://github.com/mttbernardin/dialog
 
 */
 
