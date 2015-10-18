@@ -1,6 +1,6 @@
 # Asynchronous Modal Dialog - AMD #
 
-## The difference ##
+## The differences ##
 
 There are various types of dialog windows, generally they are divided into Modal dialogs and Modeless dialogs.
 
@@ -23,7 +23,7 @@ Using JQuery in you project will make it easier to find a nice plugin which does
 So I solved the problem making a function named `dialog()` which provides an asynchronous modal dialog: *modal*, because the user cannot hide it or focus the opener document (using CSS), *asynchronous*, because it allows the execution of code not related with the dialog.
 
 
-**Fast Documentation**
+## *Fast Documentation* ##
 
 You can read the short documentation at the beginning of the `script.js` file.
 
