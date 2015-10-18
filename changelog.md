@@ -22,4 +22,16 @@
 
 ### 2.0.0 ###
 
+*Released on 2015-10-18*
+
+- Reconception of the majority of the code
+- Uploaded the project on GitHub
+- ^ Removed `data-*` attributes for styling → using classes (refer to style.css file to see new classes used)
+- ^ callBack → callback, is now a reference to a function (with returnObj passed as first argument), not an executable string (not eval anymore!)
+- ^ returnObj.boolean → returnObj.action (same behavior)
+- ^ title and content can't contain HTML anymore. However LF characters and whitespaces are preserved.
+- Adding to the DOM only the visible elements (removed display: none; hack)
+- Fixed a bug with the `keyup` event listener
+
+^ Caution! These changes break the compatibility with older versions. Please read the new documentation for further details.
 
