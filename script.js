@@ -9,7 +9,7 @@ The program integrates 3 elements.
 __object_key__	__type__	__default_value__		__comment__
 defType			String		"alert"					default type
 defTitle		String		"Message"				default title
-defContent		String		"<i>Missing text</i>"	default body of the dialog
+defContent		String		"<i>Missing text</i>"	default message of the dialog
 okText			String		"OK"					default content of the <ok> button
 continueText	String		"Continue"				default content of the <continue> button
 cancelText		String		"Cancel"				default content of the <cancel> button
@@ -20,7 +20,7 @@ cancelText		String		"Cancel"				default content of the <cancel> button
 __object_key__	__type__	__comment__
 type			String		type of the dialog window. Possible values are ['alert', 'prompt', 'confirm']
 title			String		text which will be displayed as the title of the dialog window
-content			String		body of the dialog window
+content			String		message of the dialog window
 placeholder		String		if the type is 'prompt', this will define a placeholder text for the input box
 id				String		identifier which can be retrieved afterwards in the `returnObj`, on the callback function
 vars			Object		object of convenience that will be returned in the `returnObj`, on the callback function
