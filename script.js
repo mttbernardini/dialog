@@ -95,10 +95,11 @@ function dialog(params) {
 		var target = el || (e.target ? e.target : e.srcElement);
 
 		if (target.getAttribute("data-action") == "ok" || target.getAttribute("data-action") == "cancel") {
-			document.body.removeChild(elm);
+			document.removeEventListener("keyup", useKeys, false);
+			document.body.removeChild(dialogWindow);
 			//Callback function if defined
 			if (params.callback) {
-				var returnObj = {id: params.id, action: !!target.getAttribute("data-action")=="ok", value: retValue, vars: params.vars};
+				var returnObj = {id: params.id, action: target.getAttribute("data-action")=="ok", value: prompt.value, vars: params.vars};
 				params.callback(returnObj);
 			}
 		}
@@ -107,18 +108,10 @@ function dialog(params) {
 	// Handler for keys event
 	function useKeys(e) {
 		e = e || window.event;
-		for (var i=0; sec = elm.getElementsByTagName("div")[i]; i++) {
-			if (sec.getAttribute("data-type")=="actions") {
-				if (e.keyCode == 13) {
-					action(null, sec.children[0]);
-					document.removeEventListener("keyup", useKeys, false);
-				}
-				else if (e.keyCode == 27 && sec.children[1].style.display == "inline-block") {
-					action(null, sec.children[1]);
-					document.removeEventListener("keyup", useKeys, false);
-				}
-			}
-		}
+		if (e.keyCode == 13)
+			action(null, elms["button"]["ok"]);
+		else if (e.keyCode == 27 && params.type != "alert")
+			action(null, elms["button"]["cancel"]);
 	}
 
 
@@ -130,11 +123,11 @@ function dialog(params) {
 	var elms = {};
 	
 	for (var i in struct) {
-		for (var j in struct) {
-			elms[i] = {};
-			elms[i][struct[i][j]] = document.createElement(struct[i]);
+	elms[i] = {};
+		for (var j in struct[i]) {
+			elms[i][struct[i][j]] = document.createElement(i);
 			elms[i][struct[i][j]].className = "dialog-" + struct[i][j];
-			if (struct[i] == "button") {
+			if (i == "button") {
 				elms[i][struct[i][j]].className += "-button";
 				elms[i][struct[i][j]].type = "button";
 				elms[i][struct[i][j]].setAttribute("data-action", struct[i][j]);
@@ -161,20 +154,28 @@ function dialog(params) {
 		case "confirm":
 			elms["div"]["actions"].appendChild(elms["button"]["cancel"]);
 	}
+	
+	elms["div"]["body"].appendChild(elms["div"]["actions"]);
 
 
 	// == Assigning values == //	
-	elms["div"]["title"].textValue = params.title;
-	elms["div"]["text"].textValue = params.content;
-	elms["button"]["ok"].textValue = params.type == "confirm" ? dialogSettings.continueText : dialogSettings.okText;
-	prompt.placeholder = params.placeholder;
-	
-	var popupWindow = elms["div"]["window"];
-	popupWindow.setAttribute("data-dialog-type", params.type);
+	elms["div"]["title"].textContent		=  params.title;
+	elms["div"]["message"].textContent		=  params.content;
+	elms["button"]["ok"].textContent		=  params.type == "confirm" ? dialogSettings.continueText : dialogSettings.okText;
+	elms["button"]["cancel"].textContent	=  dialogSettings.cancelText;
+	prompt.placeholder						=  params.placeholder;
 
 
 	// == Adding event listeners == //	
 	document.addEventListener("keyup", useKeys, false);
 	elms["div"]["actions"].addEventListener("click", action, false);
+	
+	
+	// == Appending to body & focus == //
+	var dialogWindow = elms["div"]["window"];
+	dialogWindow.setAttribute("data-dialog-type", params.type);
+	
+	document.body.appendChild(dialogWindow);
+	params.type == "prompt" && prompt.focus();
 
 }
