@@ -7,32 +7,32 @@ The program integrates 3 elements.
 ## The first is a global Object named `dialogSettings` that you can use to modify the default behavior of the dialog windows ##
 
 __object_key__	__type__	__default_value__		__comment__
-defType		String		"alert"				default type
-defTitle	String		"Message"			default title
-defContent	String		"<i>Missing text</i>"		default body of the dialog
-okText		String		"OK"				default content of the <ok> button
-continueText	String		"Continue"			default content of the <continue> button
-cancelText	String		"Cancel"			default content of the <cancel> button
+defType			String		"alert"					default type
+defTitle		String		"Message"				default title
+defContent		String		"<i>Missing text</i>"	default body of the dialog
+okText			String		"OK"					default content of the <ok> button
+continueText	String		"Continue"				default content of the <continue> button
+cancelText		String		"Cancel"				default content of the <cancel> button
 
 
 ## The second element is the main Function, `dialog()`, which needs the following options, passed with an object as first argument ##
 
 __object_key__	__type__	__comment__
-type		String		type of the dialog window. Possible values are ['alert', 'prompt', 'confirm']
-title		String		text which will be displayed as the title of the dialog window
-content		String		body of the dialog window
-id		String		identifier which can be retrieved afterwards in the `returnObj`, on the callback function
-vars		Object		object of convenience that will be returned in the `returnObj`, on the callback function
-callback	Function	function to be called when the dialog window is closed
+type			String		type of the dialog window. Possible values are ['alert', 'prompt', 'confirm']
+title			String		text which will be displayed as the title of the dialog window
+content			String		body of the dialog window
+id				String		identifier which can be retrieved afterwards in the `returnObj`, on the callback function
+vars			Object		object of convenience that will be returned in the `returnObj`, on the callback function
+callback		Function	function to be called when the dialog window is closed
 
 
 ## The last one is an Object that will be returned in the callback function as first argument, named `returnObj` for convenience of this guide ##
 
 __object_key__	__type__	__comment__
-id		String		identifier passed when calling the `dialog()` function, defaults to undefined
-vars		Object		same object passed with the function (NB: same reference), defaults to undefined
-action		Boolean		`true` if the user has pressed <ok> or <continue>, `false` for <cancel>
-value		String		if the type of the requested dialog window was "prompt" it will contain the value inserted in the input box, otherwise it will be undefined
+id				String		identifier passed when calling the `dialog()` function, defaults to undefined
+vars			Object		same object passed with the function (NB: same reference), defaults to undefined
+action			Boolean		`true` if the user has pressed <ok> or <continue>, `false` for <cancel>
+value			String		if the type of the requested dialog window was "prompt" it will contain the value inserted in the input box, otherwise it will be undefined
 
 ================================================================================================
 
@@ -83,9 +83,9 @@ function dialog(item) {
 	dialogSettings.cancelText	=	dialogSettings.cancelText	||  "Cancel";
 
 	// == Switch between default values or passed values == //
-	item.title			=	item.title			||  dialogSettings.defTitle;
-	item.type			=	item.type			||  dialogSettings.defType;
-	item.content			=	item.content			||  dialogSettings.defContent;
+	item.title			=	item.title		||  dialogSettings.defTitle;
+	item.type			=	item.type		||  dialogSettings.defType;
+	item.content		=	item.content	||  dialogSettings.defContent;
 
 	function action(e, el) {
 		e = e || window.event;
