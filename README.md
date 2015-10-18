@@ -125,7 +125,7 @@ This is the previous example, but with some callback functions:
 	    type: "confirm",
 	    content: "Do you want your name printed on a message?",
 	    vars: {foo: obj.vars.foo, name: obj.value!=""?obj.value:"Unnamed"},
-	    callBack: check,
+	    callback: check,
 	    id: "second"
 	  });
 	  else if (obj.id=="second" && obj.action)
