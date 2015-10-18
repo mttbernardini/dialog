@@ -44,7 +44,7 @@ The JavaScript code integrates 3 objects, the first it's a global object which i
 
 - `defType`			default to *"alert"*, specify the default type of the dialog. Its possible values are *"alert"*, *"prompt"* and *"confirm"*.
 - `defTitle` 		default to *"Message"*, specify the default title of the dialog.
-- `defContent`		default to *"<i>Missing text</i>"*, specify the default content of the dialog.
+- `defContent`		default to *"<i>Missing text</i>"*, specify the default message of the dialog.
 - `okText`			default to *"OK"*, specify the text of the ok button.
 - `continueText`	default to *"Continue"*, specify the text of the continue button.
 - `cancelText`		default to *"Cancel"*, specify the text of the cancel button.
@@ -72,13 +72,13 @@ The second object is the main function that will show the dialog box: `dialog()`
 
 To specify the content, the type, the tile, etc... of the dialog you have to pass an object as first parameter to the function which has the following properties:
 
-- String	`type`			specify the type of the dialog. Its possible values are *"alert"*, *"prompt"* and *"confirm"*.
-- String	`title`			specify the title of the dialog. It's a string which can include HTML code too.
-- String	`content`		specify the content of the dialog. It's a string which can include HTML code too.
+- String	`type`			specify the type of the dialog. Its possible values are *"alert"*, *"prompt"* or *"confirm"*.
+- String	`title`			specify the title of the dialog. HTML is *not* supported.
+- String	`content`		specify the message of the dialog. HTML is *not* supported.
 - String	`placeholder`	if you selected a *prompt* dialog, this will be a placeholder text for the input box.
-- String	`id`			specify an identifier that it will be returned with the `returnObj` object. It's a string.
+- String	`id`			specify an identifier that it will be returned with the `returnObj` object.
 - Function	`callback`		specify the function to be executed when the dialog is closed. Its first argument will be the `returnObj`.
-- Object	`vars`			is an object which works like a memory, where you can set the value of some variables they will be returned in the homonym object of the `returnObj` object.
+- Object	`vars`			is an object which works like a memory, where you can set the value of some variables that will be returned in the homonym object of the `returnObj` object.
 
 
 This is an example of an AMD:
@@ -101,9 +101,9 @@ The last object is the most important one which allows to know, when the user ha
 
 In fact, cause this kind of dialog boxes are asynchronous they allow the execution of the rest of the code (since when calling the function `dialog()` it doesn't return anything), so to know when the user has closed the dialog box a listener is added to the buttons *ok*, *continue* and *cancel*, which, when fired, executes the function passed with the `callback` parameter. The first argument of the callback function will be the `returnObj`, which contains the following parameters:
 
-- Boolean	`action`	is a Boolean value that is set to true if the user has pressed ok or continue, false for cancel.
-- String	`value`		is the value of the input box that is shown with the prompt dialog box, so it's a string. If the dialog box requested is not a prompt dialog it's set to *undefined*.
-- String	`id`		is the same identifier passed when calling the `dialog()` function. It's a string.
+- Boolean	`action`	true if the user has pressed ok or continue, false for cancel.
+- String	`value`		is the value of the input box that is shown with the prompt dialog box. If the dialog box requested is not a prompt dialog it's set to *undefined*.
+- String	`id`		is the same identifier passed when calling the `dialog()` function.
 - Object	`vars`		is the same object passed when calling the `dialog()` function. Its utility could be, for example, to pass some variables between some subsequent dialogs.
 
 
@@ -150,7 +150,7 @@ You can see the three live examples reported on this guide [here][2].
 
 The codes (script and style) are compatible with all major browsers. They were tested with IE8, Chrome, Opera, Firefox and Safari Mobile, with success. The stylesheet is also W3C valid.
 
-Anyway the codes are offered with NO WARRANTY and AS IS. If you find bugs you might report them on the github project page.
+Anyway the codes are offered with NO WARRANTY and AS IS. If you find bugs you might report them on the [github project page][1].
 
 
 ## Changelog ##
