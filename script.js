@@ -21,6 +21,7 @@ __object_key__	__type__	__comment__
 type			String		type of the dialog window. Possible values are ['alert', 'prompt', 'confirm']
 title			String		text which will be displayed as the title of the dialog window
 content			String		body of the dialog window
+placeholder		String		if the type is 'prompt', this will define a placeholder text for the input box
 id				String		identifier which can be retrieved afterwards in the `returnObj`, on the callback function
 vars			Object		object of convenience that will be returned in the `returnObj`, on the callback function
 callback		Function	function to be called when the dialog window is closed
@@ -69,9 +70,9 @@ if (!window.addEventListener) {
 
 // MAIN FUNCTION //
 
-function dialog(item) {
+function dialog(params) {
 
-	item = item || new Object();
+	params = params || new Object();
 	if (typeof(dialogSettings)=="undefined") dialogSettings = new Object();
 
 	// == Default Values == //
@@ -83,27 +84,27 @@ function dialog(item) {
 	dialogSettings.cancelText	=	dialogSettings.cancelText	||  "Cancel";
 
 	// == Switch between default values or passed values == //
-	item.title			=	item.title		||  dialogSettings.defTitle;
-	item.type			=	item.type		||  dialogSettings.defType;
-	item.content		=	item.content	||  dialogSettings.defContent;
+	params.title	=	params.title	||  dialogSettings.defTitle;
+	params.type		=	params.type		||  dialogSettings.defType;
+	params.content	=	params.content	||  dialogSettings.defContent;
 
+
+	// Will be triggered when closing the dialog
 	function action(e, el) {
 		e = e || window.event;
-		var target = el || (e.target ? e.target : e.srcElement), retBool;
-		if (target.getAttribute("data-type") == "ok")
-			retBool = true;
-		if (target.getAttribute("data-type") == "cancel")
-			retBool = false;
-		if (target.getAttribute("data-type") == "ok" || target.getAttribute("data-type") == "cancel") {
+		var target = el || (e.target ? e.target : e.srcElement);
+
+		if (target.getAttribute("data-action") == "ok" || target.getAttribute("data-action") == "cancel") {
 			document.body.removeChild(elm);
 			//Callback function if defined
-			if (item.callback) {
-				var returnObj = {id: item.id, action: retBool, value: retValue, vars: item.vars};
-				item.callback(returnObj);
+			if (params.callback) {
+				var returnObj = {id: params.id, action: !!target.getAttribute("data-action")=="ok", value: retValue, vars: params.vars};
+				params.callback(returnObj);
 			}
 		}
 	}
 	
+	// Handler for keys event
 	function useKeys(e) {
 		e = e || window.event;
 		for (var i=0; sec = elm.getElementsByTagName("div")[i]; i++) {
@@ -120,66 +121,60 @@ function dialog(item) {
 		}
 	}
 
-	var inputtag = document.createElement("input");
-	inputtag.setAttribute("type", "text");
-	var structure = '<div data-type="inner"><div data-type="title">Titolo del popup</div><div data-type="content"><div data-type="text">Contenuto</div><div data-type="prompt">'+inputtag.outerHTML+'</div><div data-type="actions"><button type="button" data-type="ok">'+dialogSettings.okText+'</button><button type="button" data-type="cancel">'+dialogSettings.cancelText+'</button></div></div></div>';
 
-	//show dialogWindow
-	var elm = document.createElement("div");
-	elm.id = "dialogWindow";
-	document.body.appendChild(elm);
-	elm.innerHTML = structure;
-	var i, sec, retBool, retValue;
-
-	// Loop through the elements of the dialogWindow
-	for (var i=0; sec = elm.getElementsByTagName("div")[i]; i++) {
-
-	  //Setting global actions
-	  if (sec.getAttribute("data-type")=="title") sec.innerHTML = item.title;
-	  if (sec.getAttribute("data-type")=="text") { sec.innerHTML = item.content; sec.style.wordWrap="break-word"; }
-	  
-	  //Case "alert" (default)
-	  if (item.type == "alert") {
-		if (sec.getAttribute("data-type")=="prompt") sec.style.display="none";
-		if (sec.getAttribute("data-type")=="actions") {
-		  sec.children[0].innerHTML = "OK";
-		  sec.children[1].style.display="none";
+	// == Creating elements == //
+	var struct = {
+		"div":		["window", "wrapper", "title", "body", "message", "prompt", "actions"],
+		"button":	["ok", "cancel"]
+		};
+	var elms = {};
+	
+	for (var i in struct) {
+		for (var j in struct) {
+			elms[i] = {};
+			elms[i][struct[i][j]] = document.createElement(struct[i]);
+			elms[i][struct[i][j]].className = "dialog-" + struct[i][j];
+			if (struct[i] == "button") {
+				elms[i][struct[i][j]].className += "-button";
+				elms[i][struct[i][j]].type = "button";
+				elms[i][struct[i][j]].setAttribute("data-action", struct[i][j]);
+			}
 		}
-	  }
-	  
-	  //Case "confirm"
-	  else if (item.type == "confirm") {
-		if (sec.getAttribute("data-type")=="prompt") sec.style.display="none";
-		if (sec.getAttribute("data-type")=="actions") {
-		  sec.children[0].innerHTML = dialogSettings.continueText;
-		  sec.children[1].style.display = "inline-block";
-		}
-	  }
-	  
-	  //Case "prompt"
-	  else if (item.type == "prompt") {
-		if (sec.getAttribute("data-type")=="prompt") {
-		  sec.style.display="block";
-		  var v=sec.children[0];
-		  v.value = "";
-		  item.defValue ? sec.children[0].placeholder = item.defValue : sec.children[0].placeholder = "";
-		  v.focus();
-		}
-		if (sec.getAttribute("data-type")=="actions") {
-		  sec.children[0].onclick=function() {retValue=v.value};
-		  sec.children[0].innerHTML = "OK";
-		  sec.children[1].style.display = "inline-block";
-		}
-	  }
-	  
-	  //Generic actions of pressing buttons
-	  if (sec.getAttribute("data-type")=="actions") {
-		//Add function to press enter and esc to click to ok and cancel
-		document.addEventListener("keyup", useKeys, false);
-		//Listener when pressing buttons
-		sec.addEventListener("click", action, false);
-	  }
-
 	}
+
+	var prompt = document.createElement("input");
+	prompt.setAttribute("type", "text");
+	prompt.className = "dialog-prompt-input";
+
+
+	// == Arranging elements == //
+	elms["div"]["window"].appendChild(elms["div"]["wrapper"]);
+	elms["div"]["wrapper"].appendChild(elms["div"]["title"]);
+	elms["div"]["wrapper"].appendChild(elms["div"]["body"]);
+	elms["div"]["body"].appendChild(elms["div"]["message"]);
+	elms["div"]["actions"].appendChild(elms["button"]["ok"]);
+	
+	switch (params.type) {
+		case "prompt":
+			elms["div"]["prompt"].appendChild(prompt);
+			elms["div"]["body"].appendChild(elms["div"]["prompt"]);
+		case "confirm":
+			elms["div"]["actions"].appendChild(elms["button"]["cancel"]);
+	}
+
+
+	// == Assigning values == //	
+	elms["div"]["title"].textValue = params.title;
+	elms["div"]["text"].textValue = params.content;
+	elms["button"]["ok"].textValue = params.type == "confirm" ? dialogSettings.continueText : dialogSettings.okText;
+	prompt.placeholder = params.placeholder;
+	
+	var popupWindow = elms["div"]["window"];
+	popupWindow.setAttribute("data-dialog-type", params.type);
+
+
+	// == Adding event listeners == //	
+	document.addEventListener("keyup", useKeys, false);
+	elms["div"]["actions"].addEventListener("click", action, false);
 
 }
