@@ -72,13 +72,13 @@ The second object is the main function that will show the dialog box: `dialog()`
 
 To specify the content, the type, the tile, etc... of the dialog you have to pass an object as first parameter to the function which has the following properties:
 
-- String	`type`			specify the type of the dialog. Its possible values are *"alert"*, *"prompt"* or *"confirm"*.
-- String	`title`			specify the title of the dialog. HTML is *not* supported.
-- String	`content`		specify the message of the dialog. HTML is *not* supported.
-- String	`placeholder`	if you selected a *prompt* dialog, this will be a placeholder text for the input box.
-- String	`id`			specify an identifier that it will be returned with the `returnObj` object.
-- Function	`callback`		specify the function to be executed when the dialog is closed. Its first argument will be the `returnObj`.
-- Object	`vars`			is an object which works like a memory, where you can set the value of some variables that will be returned in the homonym object of the `returnObj` object.
+- *string*		`type`			specify the type of the dialog. Its possible values are *"alert"*, *"prompt"* or *"confirm"*.
+- *string*		`title`			specify the title of the dialog. HTML is *not* supported.
+- *string*		`content`		specify the message of the dialog. HTML is *not* supported.
+- *string*		`placeholder`	if you selected a *prompt* dialog, this will be a placeholder text for the input box.
+- *string*		`id`			specify an identifier that it will be returned with the `returnObj` object.
+- *Function*	`callback`		specify the function to be executed when the dialog is closed. Its first argument will be the `returnObj`.
+- *Object*		`vars`			is an object which works like a memory, where you can set the value of some variables that will be returned in the homonym object of the `returnObj` object.
 
 
 This is an example of an AMD:
@@ -101,10 +101,10 @@ The last object is the most important one which allows to know, when the user ha
 
 In fact, cause this kind of dialog boxes are asynchronous they allow the execution of the rest of the code (since when calling the function `dialog()` it doesn't return anything), so to know when the user has closed the dialog box a listener is added to the buttons *ok*, *continue* and *cancel*, which, when fired, executes the function passed with the `callback` parameter. The first argument of the callback function will be the `returnObj`, which contains the following parameters:
 
-- Boolean	`action`	true if the user has pressed ok or continue, false for cancel.
-- String	`value`		is the value of the input box that is shown with the prompt dialog box. If the dialog box requested is not a prompt dialog it's set to *undefined*.
-- String	`id`		is the same identifier passed when calling the `dialog()` function.
-- Object	`vars`		is the same object passed when calling the `dialog()` function. Its utility could be, for example, to pass some variables between some subsequent dialogs.
+- *boolean*		`action`		true if the user has pressed ok or continue, false for cancel.
+- *string*		`value`			is the value of the input box that is shown with the prompt dialog box. If the dialog box requested is not a prompt dialog it's set to *undefined*.
+- *string*		`id`			is the same identifier passed when calling the `dialog()` function.
+- *Object*		`vars`			is the same object passed when calling the `dialog()` function. Its utility could be, for example, to pass some variables between some subsequent dialogs.
 
 
 This is the previous example, but with some callback functions:
