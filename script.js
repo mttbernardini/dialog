@@ -75,7 +75,7 @@ function dialog(params) {
 	// == Default Values == //
 	dialogSettings.defTitle		=	dialogSettings.defTitle		||  "Message";
 	dialogSettings.defType		=	dialogSettings.defType		||  "alert";
-	dialogSettings.defContent	=	dialogSettings.defContent	||  "<i>Missing text</i>";
+	dialogSettings.defContent	=	dialogSettings.defContent	||  "Missing text";
 	dialogSettings.okText		=	dialogSettings.okText		||  "OK";
 	dialogSettings.continueText	=	dialogSettings.continueText	||  "Continue";
 	dialogSettings.cancelText	=	dialogSettings.cancelText	||  "Cancel";
@@ -101,7 +101,7 @@ function dialog(params) {
 			}
 		}
 	}
-	
+
 	// Handler for keys event
 	function useKeys(e) {
 		e = e || window.event;
@@ -118,7 +118,7 @@ function dialog(params) {
 		"button":	["ok", "cancel"]
 		};
 	var elms = {};
-	
+
 	for (var i in struct) {
 	elms[i] = {};
 		for (var j in struct[i]) {
@@ -143,7 +143,7 @@ function dialog(params) {
 	elms["div"]["wrapper"].appendChild(elms["div"]["body"]);
 	elms["div"]["body"].appendChild(elms["div"]["message"]);
 	elms["div"]["actions"].appendChild(elms["button"]["ok"]);
-	
+
 	switch (params.type) {
 		case "prompt":
 			elms["div"]["prompt"].appendChild(prompt);
@@ -151,27 +151,27 @@ function dialog(params) {
 		case "confirm":
 			elms["div"]["actions"].appendChild(elms["button"]["cancel"]);
 	}
-	
+
 	elms["div"]["body"].appendChild(elms["div"]["actions"]);
 
 
-	// == Assigning values == //	
+	// == Assigning values == //
 	elms["div"]["title"].textContent		=  params.title;
 	elms["div"]["message"].textContent		=  params.content;
 	elms["button"]["ok"].textContent		=  params.type == "confirm" ? dialogSettings.continueText : dialogSettings.okText;
 	elms["button"]["cancel"].textContent	=  dialogSettings.cancelText;
-	prompt.placeholder						=  params.placeholder;
+	prompt.placeholder						=  params.placeholder || "";
 
 
-	// == Adding event listeners == //	
+	// == Adding event listeners == //
 	document.addEventListener("keyup", useKeys, false);
 	elms["div"]["actions"].addEventListener("click", action, false);
-	
-	
+
+
 	// == Appending to body & focus == //
 	var dialogWindow = elms["div"]["window"];
 	dialogWindow.setAttribute("data-dialog-type", params.type);
-	
+
 	document.body.appendChild(dialogWindow);
 	params.type == "prompt" && prompt.focus();
 
