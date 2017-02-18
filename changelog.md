@@ -35,3 +35,8 @@
 
 ^ Caution! These changes break the compatibility with older versions. Please read the new documentation for further details.
 
+### 2.0.1 ###
+
+*Released on 2017-02-18*
+
+- Minor bugfixes

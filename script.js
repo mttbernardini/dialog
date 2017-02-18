@@ -37,7 +37,7 @@ value			string		if the type of the requested dialog window was "prompt" it will 
 
 ================================================================================================
 
-Version: 2.0.0
+Version: 2.0.1
 (c) Matteo Bernardini 2015
 Shared with MIT license (refer to the LICENSE file for further information)
 
