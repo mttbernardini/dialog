@@ -54,12 +54,12 @@ Changing this properties may be useful to localize the dialog box. For example, 
 
 ```javascript
 	dialogSettings = {
-	  defType: "confirm",
-	  defTitle: "Conferma",
-	  defContent: "Contenuto non impostato",
-	  okText: "Accetta",
-	  continueText: "Continua",
-	  cancelText: "Annulla"
+		defType: "confirm",
+		defTitle: "Conferma",
+		defContent: "Contenuto non impostato",
+		okText: "Accetta",
+		continueText: "Continua",
+		cancelText: "Annulla"
 	};
 
 	// Show the default dialog
@@ -85,9 +85,9 @@ This is an example of an AMD:
 
 ```javascript
 	var parameters = {
-	  type: "prompt",
-	  title: "Example",
-	  content: "What's your name?",
+		type: "prompt",
+		title: "Example",
+		content: "What's your name?",
 	}
 
 	// Show the dialog
@@ -111,29 +111,29 @@ This is the previous example, but with some callback functions:
 
 ```javascript
 	var parameters = {
-	  type: "prompt",
-	  title: "Example",
-	  content: "What's your name?",
-	  callback: check,
-	  id: "first",
-	  vars: {foo: "bar"}
+		type: "prompt",
+		title: "Example",
+		content: "What's your name?",
+		callback: check,
+		id: "first",
+		vars: {foo: "bar"}
 	}
 
 	function check(obj) {
-	  if (obj.id=="first" && obj.action)
-	  dialog({
-	    type: "confirm",
-	    content: "Do you want your name printed on a message?",
-	    vars: {foo: obj.vars.foo, name: obj.value!=""?obj.value:"Unnamed"},
-	    callback: check,
-	    id: "second"
-	  });
-	  else if (obj.id=="second" && obj.action)
-	  dialog({
-	    //NB: default type is alert, so we don't need to specify it
-	    title: "Print out",
-	    content: "Hello "+obj.vars.name+"\nFoo: "+obj.vars.foo
-	  });
+		if (obj.id=="first" && obj.action)
+		dialog({
+			type: "confirm",
+			content: "Do you want your name printed on a message?",
+			vars: {foo: obj.vars.foo, name: obj.value!=""?obj.value:"Unnamed"},
+			callback: check,
+			id: "second"
+		});
+		else if (obj.id=="second" && obj.action)
+		dialog({
+			//NB: default type is alert, so we don't need to specify it
+			title: "Print out",
+			content: "Hello "+obj.vars.name+"\nFoo: "+obj.vars.foo
+		});
 	}
 
 	// Start the chain

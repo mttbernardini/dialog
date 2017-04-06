@@ -38,6 +38,7 @@ pre {
 	background-color: #EEC;
 	font-family: monospace;
 	white-space: pre-wrap;
+	tab-size: 4;
 	margin: 1em 0px;
 	font-size: 1em;
 	color: #232;
@@ -71,12 +72,12 @@ code {
 <pre>
 &lt;script type="text/javascript"&gt;
 dialogSettings = {
-  defType: "confirm",
-  defTitle: "Conferma",
-  defContent: "Contenuto non impostato",
-  okText: "Accetta",
-  continueText: "Continua",
-  cancelText: "Annulla"
+	defType: "confirm",
+	defTitle: "Conferma",
+	defContent: "Contenuto non impostato",
+	okText: "Accetta",
+	continueText: "Continua",
+	cancelText: "Annulla"
 };
 &lt;/script&gt;
 
@@ -94,9 +95,9 @@ dialogSettings = {
 <pre>
 &lt;script type="text/javascript"&gt;
 var parameters = {
-  type: "prompt",
-  title: "Example",
-  content: "What's your name?",
+	type: "prompt",
+	title: "Example",
+	content: "What's your name?",
 }
 &lt;/script&gt;
 
@@ -114,29 +115,29 @@ var parameters = {
 <pre>
 &lt;script type="text/javascript"&gt;
 var parameters = {
-  type: "prompt",
-  title: "Example",
-  content: "What's your name?",
-  callback: check,
-  id: "first",
-  vars: {foo: "bar"}
+	type: "prompt",
+	title: "Example",
+	content: "What's your name?",
+	callback: check,
+	id: "first",
+	vars: {foo: "bar"}
 }
 
 function check(obj) {
-  if (obj.id=="first" && obj.action)
-  dialog({
-    type: "confirm",
-    content: "Do you want your name printed on a message?",
-    vars: {foo: obj.vars.foo, name: obj.value!=""?obj.value:"Unnamed"},
-    callback: check,
-    id: "second"
-  });
-  else if (obj.id=="second" && obj.action)
-  dialog({
-    //NB: default type is alert, so we don't need to specify it
-    title: "Print out",
-    content: "Hello "+obj.vars.name+"\nFoo: "+obj.vars.foo
-  });
+	if (obj.id=="first" && obj.action)
+	dialog({
+		type: "confirm",
+		content: "Do you want your name printed on a message?",
+		vars: {foo: obj.vars.foo, name: obj.value!=""?obj.value:"Unnamed"},
+		callback: check,
+		id: "second"
+	});
+	else if (obj.id=="second" && obj.action)
+	dialog({
+		//NB: default type is alert, so we don't need to specify it
+		title: "Print out",
+		content: "Hello "+obj.vars.name+"\nFoo: "+obj.vars.foo
+	});
 }
 &lt;/script&gt;
 
@@ -145,20 +146,20 @@ function check(obj) {
 
 <script type="text/javascript">
 function check(obj) {
-  if (obj.id=="first" && obj.action)
-  dialog({
-    type: "confirm",
-    content: "Do you want your name printed on a message?",
-    vars: {foo: obj.vars.foo, name: obj.value!=""?obj.value:"Unnamed"},
-    callback: check,
-    id: "second"
-  });
-  else if (obj.id=="second" && obj.action)
-  dialog({
-    //NB: default type is alert, so we don't need to specify it
-    title: "Print out",
-    content: "Hello "+obj.vars.name+"\nFoo: "+obj.vars.foo
-  });
+	if (obj.id=="first" && obj.action)
+	dialog({
+		type: "confirm",
+		content: "Do you want your name printed on a message?",
+		vars: {foo: obj.vars.foo, name: obj.value!=""?obj.value:"Unnamed"},
+		callback: check,
+		id: "second"
+	});
+	else if (obj.id=="second" && obj.action)
+	dialog({
+		//NB: default type is alert, so we don't need to specify it
+		title: "Print out",
+		content: "Hello "+obj.vars.name+"\nFoo: "+obj.vars.foo
+	});
 }
 </script>
 

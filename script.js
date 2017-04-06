@@ -6,34 +6,34 @@ The program integrates 3 elements.
 
 ## The first is a global Object named `dialogSettings` that you can use to modify the default behavior of the dialog windows ##
 
-__object_key__	__type__	__default_value__		__comment__
-defType			string		"alert"					default type
-defTitle		string		"Message"				default title
-defContent		string		"<i>Missing text</i>"	default message of the dialog
-okText			string		"OK"					default content of the <ok> button
-continueText	string		"Continue"				default content of the <continue> button
-cancelText		string		"Cancel"				default content of the <cancel> button
+__object_key__   __type__   __default_value__       __comment__
+defType          string     "alert"                 default type
+defTitle         string     "Message"               default title
+defContent       string     "<i>Missing text</i>"   default message of the dialog
+okText           string     "OK"                    default content of the <ok> button
+continueText     string     "Continue"              default content of the <continue> button
+cancelText       string     "Cancel"                default content of the <cancel> button
 
 
 ## The second element is the main Function, `dialog()`, which needs the following options, passed with an object as first argument ##
 
-__object_key__	__type__	__comment__
-type			string		type of the dialog window. Possible values are ['alert', 'prompt', 'confirm']
-title			string		text which will be displayed as the title of the dialog window
-content			string		message of the dialog window
-placeholder		string		if the type is 'prompt', this will define a placeholder text for the input box
-id				string		identifier which can be retrieved afterwards in the `returnObj`, on the callback function
-vars			Object		object of convenience that will be returned in the `returnObj`, on the callback function
-callback		Function	function to be called when the dialog window is closed
+__object_key__   __type__   __comment__
+type             string     type of the dialog window. Possible values are ['alert', 'prompt', 'confirm']
+title            string     text which will be displayed as the title of the dialog window
+content          string     message of the dialog window
+placeholder      string     if the type is 'prompt', this will define a placeholder text for the input box
+id               string     identifier which can be retrieved afterwards in the `returnObj`, on the callback function
+vars             Object     object of convenience that will be returned in the `returnObj`, on the callback function
+callback         Function   function to be called when the dialog window is closed
 
 
 ## The last one is an Object that will be returned in the callback function as first argument, named `returnObj` for convenience of this guide ##
 
-__object_key__	__type__	__comment__
-id				string		identifier passed when calling the `dialog()` function, defaults to undefined
-vars			Object		same object passed with the function (NB: same reference), defaults to undefined
-action			boolean		`true` if the user has pressed <ok> or <continue>, `false` for <cancel>
-value			string		if the type of the requested dialog window was "prompt" it will contain the value inserted in the input box, otherwise it will be undefined
+__object_key__   __type__   __comment__
+id               string     identifier passed when calling the `dialog()` function, defaults to undefined
+vars             Object     same object passed with the function (NB: same reference), defaults to undefined
+action           boolean    `true` if the user has pressed <ok> or <continue>, `false` for <cancel>
+value            string     if the type of the requested dialog window was "prompt" it will contain the value inserted in the input box, otherwise it will be undefined
 
 ================================================================================================
 
@@ -73,17 +73,17 @@ function dialog(params) {
 	if (typeof(dialogSettings)=="undefined") dialogSettings = new Object();
 
 	// == Default Values == //
-	dialogSettings.defTitle		=	dialogSettings.defTitle		||  "Message";
-	dialogSettings.defType		=	dialogSettings.defType		||  "alert";
-	dialogSettings.defContent	=	dialogSettings.defContent	||  "Missing text";
-	dialogSettings.okText		=	dialogSettings.okText		||  "OK";
-	dialogSettings.continueText	=	dialogSettings.continueText	||  "Continue";
-	dialogSettings.cancelText	=	dialogSettings.cancelText	||  "Cancel";
+	dialogSettings.defTitle     =  dialogSettings.defTitle      ||  "Message";
+	dialogSettings.defType      =  dialogSettings.defType       ||  "alert";
+	dialogSettings.defContent   =  dialogSettings.defContent    ||  "Missing text";
+	dialogSettings.okText       =  dialogSettings.okText        ||  "OK";
+	dialogSettings.continueText =  dialogSettings.continueText  ||  "Continue";
+	dialogSettings.cancelText   =  dialogSettings.cancelText    ||  "Cancel";
 
 	// == Switch between default values or passed values == //
-	params.title	=	params.title	||  dialogSettings.defTitle;
-	params.type		=	params.type		||  dialogSettings.defType;
-	params.content	=	params.content	||  dialogSettings.defContent;
+	params.title    =  params.title    ||  dialogSettings.defTitle;
+	params.type     =  params.type     ||  dialogSettings.defType;
+	params.content  =  params.content  ||  dialogSettings.defContent;
 
 
 	// Will be triggered when closing the dialog
@@ -114,8 +114,8 @@ function dialog(params) {
 
 	// == Creating elements == //
 	var struct = {
-		"div":		["window", "wrapper", "title", "body", "message", "prompt", "actions"],
-		"button":	["ok", "cancel"]
+		"div":     ["window", "wrapper", "title", "body", "message", "prompt", "actions"],
+		"button":  ["ok", "cancel"]
 		};
 	var elms = {};
 
@@ -156,11 +156,11 @@ function dialog(params) {
 
 
 	// == Assigning values == //
-	elms["div"]["title"].textContent		=  params.title;
-	elms["div"]["message"].textContent		=  params.content;
-	elms["button"]["ok"].textContent		=  params.type == "confirm" ? dialogSettings.continueText : dialogSettings.okText;
-	elms["button"]["cancel"].textContent	=  dialogSettings.cancelText;
-	prompt.placeholder						=  params.placeholder || "";
+	elms["div"]["title"].textContent        =  params.title;
+	elms["div"]["message"].textContent      =  params.content;
+	elms["button"]["ok"].textContent        =  params.type == "confirm" ? dialogSettings.continueText : dialogSettings.okText;
+	elms["button"]["cancel"].textContent    =  dialogSettings.cancelText;
+	prompt.placeholder                      =  params.placeholder || "";
 
 
 	// == Adding event listeners == //
