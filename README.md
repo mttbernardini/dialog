@@ -8,7 +8,7 @@ The library provides one function `dialog()` in the global namespace (`window`),
 prop = {
 	type: "alert",
 	title: "Message",
-	content: "Hello, world!"
+	content: "Hello, world!",
 	callback: myFunc // Will be called when the dialog is closed
 };
 
