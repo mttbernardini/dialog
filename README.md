@@ -162,9 +162,9 @@ Please refer to the changelog.md file.
 
 ## License and sharing ##
 
-Made by: Matteo Bernardini, [@mttbernardini][3].
+&copy; 2015 Matteo Bernardini, [@mttbernardini][3].
 
-This project is shared with the MIT license.  
+This project is licensed under the MIT License.  
 Please refer to the LICENSE file for further information.
 
 

@@ -1,50 +1,50 @@
 /*
-
-Asynchronous Modal Dialog Window, a utility which can replace the default JavaScript dialog windows (alert(), prompt(), confirm())
-
-The program integrates 3 elements.
-
-## The first is a global Object named `dialogSettings` that you can use to modify the default behavior of the dialog windows ##
-
-__object_key__   __type__   __default_value__       __comment__
-defType          string     "alert"                 default type
-defTitle         string     "Message"               default title
-defContent       string     "<i>Missing text</i>"   default message of the dialog
-okText           string     "OK"                    default content of the <ok> button
-continueText     string     "Continue"              default content of the <continue> button
-cancelText       string     "Cancel"                default content of the <cancel> button
-
-
-## The second element is the main Function, `dialog()`, which needs the following options, passed with an object as first argument ##
-
-__object_key__   __type__   __comment__
-type             string     type of the dialog window. Possible values are ['alert', 'prompt', 'confirm']
-title            string     text which will be displayed as the title of the dialog window
-content          string     message of the dialog window
-placeholder      string     if the type is 'prompt', this will define a placeholder text for the input box
-id               string     identifier which can be retrieved afterwards in the `returnObj`, on the callback function
-vars             Object     object of convenience that will be returned in the `returnObj`, on the callback function
-callback         Function   function to be called when the dialog window is closed
-
-
-## The last one is an Object that will be returned in the callback function as first argument, named `returnObj` for convenience of this guide ##
-
-__object_key__   __type__   __comment__
-id               string     identifier passed when calling the `dialog()` function, defaults to undefined
-vars             Object     same object passed with the function (NB: same reference), defaults to undefined
-action           boolean    `true` if the user has pressed <ok> or <continue>, `false` for <cancel>
-value            string     if the type of the requested dialog window was "prompt" it will contain the value inserted in the input box, otherwise it will be undefined
-
-================================================================================================
-
-Version: 2.0.1
-(c) Matteo Bernardini 2015
-Shared with MIT license (refer to the LICENSE file for further information)
-
-Check this project on GitHub:
-http://github.com/mttbernardin/dialog
-
-*/
+ *
+ * Asynchronous Modal Dialog Window, a utility which can replace the default JavaScript dialog windows for webpages (alert(), prompt(), confirm())
+ *
+ * The program integrates 3 elements.
+ *
+ * ## The first is a global Object named `dialogSettings` that you can use to modify the default behavior of the dialog windows ##
+ *
+ * __object_key__   __type__   __default_value__       __comment__
+ * defType          string     "alert"                 default type
+ * defTitle         string     "Message"               default title
+ * defContent       string     "<i>Missing text</i>"   default message of the dialog
+ * okText           string     "OK"                    default content of the <ok> button
+ * continueText     string     "Continue"              default content of the <continue> button
+ * cancelText       string     "Cancel"                default content of the <cancel> button
+ *
+ *
+ * ## The second element is the main Function, `dialog()`, which needs the following options, passed with an object as first argument ##
+ *
+ * __object_key__   __type__   __comment__
+ * type             string     type of the dialog window. Possible values are ['alert', 'prompt', 'confirm']
+ * title            string     text which will be displayed as the title of the dialog window
+ * content          string     message of the dialog window
+ * placeholder      string     if the type is 'prompt', this will define a placeholder text for the input box
+ * id               string     identifier which can be retrieved afterwards in the `returnObj`, on the callback function
+ * vars             Object     object of convenience that will be returned in the `returnObj`, on the callback function
+ * callback         Function   function to be called when the dialog window is closed
+ *
+ *
+ * ## The last one is an Object that will be returned in the callback function as first argument, named `returnObj` for convenience of this guide ##
+ *
+ * __object_key__   __type__   __comment__
+ * id               string     identifier passed when calling the `dialog()` function, defaults to undefined
+ * vars             Object     same object passed with the function (NB: same reference), defaults to undefined
+ * action           boolean    `true` if the user has pressed <ok> or <continue>, `false` for <cancel>
+ * value            string     if the type of the requested dialog window was "prompt" it will contain the value inserted in the input box, otherwise it will be undefined
+ *
+ * ================================================================================================
+ *
+ * Version: 2.0.1
+ * Copyright (c) 2015 Matteo Bernardini
+ * Licensed under the MIT License (refer to the LICENSE file for further information).
+ *
+ * Check this project on GitHub:
+ * http://github.com/mttbernardin/dialog
+ *
+ */
 
 
 
