@@ -93,14 +93,14 @@ function dialog(params) {
 		e = e || window.event;
 		var target = e.target ? e.target : e.srcElement;
 
-		if (userAction !== undefined || target.getAttribute("data-action") === "ok" || target.getAttribute("data-action") === "cancel") {
+		if (typeof(userAction) !== "undefined" || target.getAttribute("data-action") === "ok" || target.getAttribute("data-action") === "cancel") {
 			document.removeEventListener("keyup", useKeys, false);
 			document.body.removeChild(dialogWindow);
 			//Callback function if defined
 			if (params.callback) {
 				var returnObj = {
 					id: params.id,
-					action: userAction !== undefined ? userAction : target.getAttribute("data-action") === "ok",
+					action: typeof(userAction) !== "undefined" ? userAction : target.getAttribute("data-action") === "ok",
 					value: prompt.value,
 					vars: params.vars
 				};
