@@ -53,12 +53,12 @@ if (!window.addEventListener) {
 	Object.defineProperties(Element.prototype, {
 		"addEventListener": {
 			value: function(evt, handler, capture) {
-				this.attachEvent('on'+evt, handler);
+				this.attachEvent("on"+evt, handler);
 			}
 		},
 		"removeEventListener": {
 			value: function(evt, handler, capture) {
-				this.detachEvent('on'+evt, handler);
+				this.detachEvent("on"+evt, handler);
 			}
 		},
 	});
@@ -67,10 +67,12 @@ if (!window.addEventListener) {
 
 // MAIN FUNCTION //
 
+var dialogSettings = new Object();
+
 function dialog(params) {
 
 	params = params || new Object();
-	if (typeof(dialogSettings)=="undefined") dialogSettings = new Object();
+	if (typeof(dialogSettings) === "undefined") dialogSettings = new Object();
 
 	// == Default Values == //
 	dialogSettings.defTitle     =  dialogSettings.defTitle      ||  "Message";
@@ -87,16 +89,21 @@ function dialog(params) {
 
 
 	// Will be triggered when closing the dialog
-	function action(e, el) {
+	function action(e, userAction) {
 		e = e || window.event;
-		var target = el || (e.target ? e.target : e.srcElement);
+		var target = e.target ? e.target : e.srcElement;
 
-		if (target.getAttribute("data-action") == "ok" || target.getAttribute("data-action") == "cancel") {
+		if (userAction !== undefined || target.getAttribute("data-action") === "ok" || target.getAttribute("data-action") === "cancel") {
 			document.removeEventListener("keyup", useKeys, false);
 			document.body.removeChild(dialogWindow);
 			//Callback function if defined
 			if (params.callback) {
-				var returnObj = {id: params.id, action: target.getAttribute("data-action")=="ok", value: prompt.value, vars: params.vars};
+				var returnObj = {
+					id: params.id,
+					action: userAction !== undefined ? userAction : target.getAttribute("data-action") === "ok",
+					value: prompt.value,
+					vars: params.vars
+				};
 				params.callback(returnObj);
 			}
 		}
@@ -105,10 +112,10 @@ function dialog(params) {
 	// Handler for keys event
 	function useKeys(e) {
 		e = e || window.event;
-		if (e.keyCode == 13)
-			action(null, elms["button"]["ok"]);
-		else if (e.keyCode == 27 && params.type != "alert")
-			action(null, elms["button"]["cancel"]);
+		if (e.keyCode === 13)
+			action(null, true);
+		else if (e.keyCode === 27 && params.type !== "alert")
+			action(null, false);
 	}
 
 
@@ -120,7 +127,7 @@ function dialog(params) {
 	var elms = {};
 
 	for (var i in struct) {
-	elms[i] = {};
+		elms[i] = {};
 		for (var j in struct[i]) {
 			elms[i][struct[i][j]] = document.createElement(i);
 			elms[i][struct[i][j]].className = "dialog-" + struct[i][j];
@@ -158,7 +165,7 @@ function dialog(params) {
 	// == Assigning values == //
 	elms["div"]["title"].textContent        =  params.title;
 	elms["div"]["message"].textContent      =  params.content;
-	elms["button"]["ok"].textContent        =  params.type == "confirm" ? dialogSettings.continueText : dialogSettings.okText;
+	elms["button"]["ok"].textContent        =  params.type === "confirm" ? dialogSettings.continueText : dialogSettings.okText;
 	elms["button"]["cancel"].textContent    =  dialogSettings.cancelText;
 	prompt.placeholder                      =  params.placeholder || "";
 
@@ -173,6 +180,8 @@ function dialog(params) {
 	dialogWindow.setAttribute("data-dialog-type", params.type);
 
 	document.body.appendChild(dialogWindow);
-	params.type == "prompt" && prompt.focus();
+
+	if (params.type === "prompt")
+		prompt.focus();
 
 }
