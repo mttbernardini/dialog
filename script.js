@@ -131,7 +131,7 @@ function dialog(params) {
 		for (var j in struct[i]) {
 			elms[i][struct[i][j]] = document.createElement(i);
 			elms[i][struct[i][j]].className = "dialog-" + struct[i][j];
-			if (i == "button") {
+			if (i === "button") {
 				elms[i][struct[i][j]].className += "-button";
 				elms[i][struct[i][j]].type = "button";
 				elms[i][struct[i][j]].setAttribute("data-action", struct[i][j]);
