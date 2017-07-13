@@ -71,8 +71,8 @@ var dialogSettings = new Object();
 
 function dialog(params) {
 
-	params = params || new Object();
-	if (typeof(dialogSettings) === "undefined") dialogSettings = new Object();
+	params         = params         || new Object();
+	dialogSettings = dialogSettings || new Object();
 
 	// == Default Values == //
 	dialogSettings.defTitle     =  dialogSettings.defTitle      ||  "Message";
@@ -88,42 +88,11 @@ function dialog(params) {
 	params.content  =  params.content  ||  dialogSettings.defContent;
 
 
-	// Will be triggered when closing the dialog
-	function action(e, userAction) {
-		e = e || window.event;
-		var target = e.target ? e.target : e.srcElement;
-
-		if (typeof(userAction) !== "undefined" || target.getAttribute("data-action") === "ok" || target.getAttribute("data-action") === "cancel") {
-			document.removeEventListener("keyup", useKeys, false);
-			document.body.removeChild(dialogWindow);
-			//Callback function if defined
-			if (params.callback) {
-				var returnObj = {
-					id: params.id,
-					action: typeof(userAction) !== "undefined" ? userAction : target.getAttribute("data-action") === "ok",
-					value: prompt.value,
-					vars: params.vars
-				};
-				params.callback(returnObj);
-			}
-		}
-	}
-
-	// Handler for keys event
-	function useKeys(e) {
-		e = e || window.event;
-		if (e.keyCode === 13)
-			action(null, true);
-		else if (e.keyCode === 27 && params.type !== "alert")
-			action(null, false);
-	}
-
-
 	// == Creating elements == //
 	var struct = {
 		"div":     ["window", "wrapper", "title", "body", "message", "prompt", "actions"],
 		"button":  ["ok", "cancel"]
-		};
+	};
 	var elms = {};
 
 	for (var i in struct) {
@@ -155,7 +124,7 @@ function dialog(params) {
 		case "prompt":
 			elms["div"]["prompt"].appendChild(prompt);
 			elms["div"]["body"].appendChild(elms["div"]["prompt"]);
-		case "confirm":
+		case "confirm": // or "prompt", notice no break here
 			elms["div"]["actions"].appendChild(elms["button"]["cancel"]);
 	}
 
@@ -170,11 +139,6 @@ function dialog(params) {
 	prompt.placeholder                      =  params.placeholder || "";
 
 
-	// == Adding event listeners == //
-	document.addEventListener("keyup", useKeys, false);
-	elms["div"]["actions"].addEventListener("click", action, false);
-
-
 	// == Appending to body & focus == //
 	var dialogWindow = elms["div"]["window"];
 	dialogWindow.setAttribute("data-dialog-type", params.type);
@@ -183,5 +147,42 @@ function dialog(params) {
 
 	if (params.type === "prompt")
 		prompt.focus();
+
+
+
+	// == Adding event listeners == //
+
+	// Will be triggered when closing the dialog
+	function action(e, userAction) {
+		e = e || window.event;
+		var target = e.target ? e.target : e.srcElement;
+
+		if (typeof userAction === "boolean" || target.getAttribute("data-action") === "ok" || target.getAttribute("data-action") === "cancel") {
+			document.removeEventListener("keyup", useKeys, false);
+			document.body.removeChild(dialogWindow);
+			//Callback function if defined
+			if (params.callback) {
+				var returnObj = {
+					id: params.id,
+					action: typeof userAction === "boolean" ? userAction : target.getAttribute("data-action") === "ok",
+					value: prompt.value,
+					vars: params.vars
+				};
+				params.callback(returnObj);
+			}
+		}
+	}
+
+	// Handler for keyboard events
+	function useKeys(e) {
+		e = e || window.event;
+		if (e.keyCode === 13) // ENTER key
+			action(null, true);
+		else if (e.keyCode === 27 && params.type !== "alert") // ESC key
+			action(null, false);
+	}
+
+	document.addEventListener("keyup", useKeys, false);
+	elms["div"]["actions"].addEventListener("click", action, false);
 
 }
