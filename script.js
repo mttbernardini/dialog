@@ -9,7 +9,7 @@
  * __object_key__   __type__   __default_value__       __comment__
  * defType          string     "alert"                 default type
  * defTitle         string     "Message"               default title
- * defContent       string     "<i>Missing text</i>"   default message of the dialog
+ * defContent       string     "Missing text"          default message of the dialog
  * okText           string     "OK"                    default content of the <ok> button
  * continueText     string     "Continue"              default content of the <continue> button
  * cancelText       string     "Cancel"                default content of the <cancel> button
