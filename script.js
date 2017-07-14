@@ -89,23 +89,17 @@ function dialog(params) {
 
 
 	// == Creating elements == //
-	var parts = {
-	    	"div":     ["window", "wrapper", "title", "body", "message", "prompt", "actions"],
-	    	"button":  ["ok", "cancel"]
-	    },
-	    elms = {};
+	var parts = ["window", "wrapper", "title", "body", "message", "prompt", "actions", "ok-btn", "cancel-btn"],
+	    elms  = {};
 
-	for (var elemType in parts) if (parts.hasOwnProperty(elemType)) {
-		elms[elemType] = {};
-		for (var j = 0, part; part = parts[elemType][j]; j++) {
-			elms[elemType][part] = document.createElement(elemType);
-			elms[elemType][part].className = "dialog-" + part;
-			if (elemType === "button") {
-				elms[elemType][part].className += "-button";
-				elms[elemType][part].type = "button";
-				elms[elemType][part].setAttribute("data-action", part);
-			}
+	for (var i = 0, partName; partName = parts[i]; i++) {
+		if (partName.indexOf("btn") !== -1) {
+			elms[partName] = document.createElement("button");
+			elms[partName].setAttribute("type", "button");
+		} else {
+			elms[partName] = document.createElement("div");
 		}
+		elms[partName].className = "dialog-" + partName;
 	}
 
 	var prompt = document.createElement("input");
@@ -114,33 +108,33 @@ function dialog(params) {
 
 
 	// == Arranging elements == //
-	elms["div"]["window"].appendChild(elms["div"]["wrapper"]);
-	elms["div"]["wrapper"].appendChild(elms["div"]["title"]);
-	elms["div"]["wrapper"].appendChild(elms["div"]["body"]);
-	elms["div"]["body"].appendChild(elms["div"]["message"]);
-	elms["div"]["actions"].appendChild(elms["button"]["ok"]);
+	elms["window"].appendChild(elms["wrapper"]);
+	elms["wrapper"].appendChild(elms["title"]);
+	elms["wrapper"].appendChild(elms["body"]);
+	elms["body"].appendChild(elms["message"]);
+	elms["actions"].appendChild(elms["ok-btn"]);
 
 	switch (params.type) {
 		case "prompt":
-			elms["div"]["prompt"].appendChild(prompt);
-			elms["div"]["body"].appendChild(elms["div"]["prompt"]);
+			elms["prompt"].appendChild(prompt);
+			elms["body"].appendChild(elms["prompt"]);
 		case "confirm": // or "prompt", notice no break here
-			elms["div"]["actions"].appendChild(elms["button"]["cancel"]);
+			elms["actions"].appendChild(elms["cancel-btn"]);
 	}
 
-	elms["div"]["body"].appendChild(elms["div"]["actions"]);
+	elms["body"].appendChild(elms["actions"]);
 
 
 	// == Assigning values == //
-	elms["div"]["title"].textContent        =  params.title;
-	elms["div"]["message"].textContent      =  params.content;
-	elms["button"]["ok"].textContent        =  params.type === "confirm" ? dialogSettings.continueText : dialogSettings.okText;
-	elms["button"]["cancel"].textContent    =  dialogSettings.cancelText;
-	prompt.placeholder                      =  params.placeholder || "";
+	elms["title"].textContent       =  params.title;
+	elms["message"].textContent     =  params.content;
+	elms["ok-btn"].textContent      =  params.type === "confirm" ? dialogSettings.continueText : dialogSettings.okText;
+	elms["cancel-btn"].textContent  =  dialogSettings.cancelText;
+	prompt.placeholder              =  params.placeholder || "";
 
 
 	// == Appending to body & focus == //
-	var dialogWindow = elms["div"]["window"];
+	var dialogWindow = elms["window"];
 	dialogWindow.setAttribute("data-dialog-type", params.type);
 
 	document.body.appendChild(dialogWindow);
@@ -157,14 +151,14 @@ function dialog(params) {
 		e = e || window.event;
 		var target = e.target ? e.target : e.srcElement;
 
-		if (typeof userAction === "boolean" || target.getAttribute("data-action") === "ok" || target.getAttribute("data-action") === "cancel") {
+		if (typeof userAction === "boolean" || target.tagName.toLowerCase() === "button") {
 			document.removeEventListener("keyup", useKeys, false);
 			document.body.removeChild(dialogWindow);
 			//Callback function if defined
 			if (params.callback) {
 				var returnObj = {
 					id: params.id,
-					action: typeof userAction === "boolean" ? userAction : target.getAttribute("data-action") === "ok",
+					action: typeof userAction === "boolean" ? userAction : target.className.indexOf("ok") !== -1,
 					value: prompt.value,
 					vars: params.vars
 				};
@@ -183,6 +177,6 @@ function dialog(params) {
 	}
 
 	document.addEventListener("keyup", useKeys, false);
-	elms["div"]["actions"].addEventListener("click", action, false);
+	elms["actions"].addEventListener("click", action, false);
 
 }
