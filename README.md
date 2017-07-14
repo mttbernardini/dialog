@@ -2,7 +2,7 @@
 
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/a61ce490dd304193865a6b93f793e8b4)](https://www.codacy.com/app/mttbernardini/dialog?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=mttbernardini/dialog&amp;utm_campaign=Badge_Grade)
 
-This project is a light JS library providing basic modal dialogs for webpages, aiming to replace the built-in `alert()`, `prompt()` and `confirm()` which instead block the current execution of JavaScript (hence the name "asynchronous").
+This project is a light JS library providing basic modal dialogs for webpages, aiming to replace the built-in `alert()`, `prompt()` and `confirm()` which instead block JavaScript execution (hence the name "asynchronous").
 
 The library provides one function `dialog()` in the global namespace (`window`), taking as argument an object of properties.
 
@@ -23,14 +23,14 @@ dialog(prop); // Shows the dialog box
 The inclusion on a project is really simple and only consist of adding the script and the default stylesheet:
 
 ```html
-<link rel="stylesheet" type="text/css" href="dialog/style.css">
-<script type="text/javascript" src="dialog/script.js"></script>
+<link rel="stylesheet" type="text/css" href="/path/to/dialog_default.css">
+<script type="text/javascript" src="/path/to/dialog.js"></script>
 ```
 
 
 ## Documentation ##
 
-A short and effective documentation for all the supported properties can be found at the beginning of the `script.js` file.
+A short and effective documentation for all the supported properties can be found at the beginning of the `dialog.js` file.
 
 A more detailed documentation providing examples can be found in the [wiki][1]
 
