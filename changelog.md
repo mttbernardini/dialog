@@ -2,6 +2,15 @@
 
 ## Version 2 ##
 
+### 2.1 ###
+
+*Released on 2017-07-14*
+
+- `returnObj.value` is correctly set to `undefined` if a dialog is not of "prompt" type.
+- Renamed button classes (`dialog-continue-button` → `dialog-continue-btn`, `dialog-cancel-button` → `dialog-cancel-btn`).
+- Removed unneeded `data-action` attributes on dialog buttons.
+- Simplified code (increased readability).
+
 ### 2.0.1 ###
 
 *Released on 2017-02-18*
