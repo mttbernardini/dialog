@@ -159,7 +159,7 @@ function dialog(params) {
 				var returnObj = {
 					id: params.id,
 					action: typeof userAction === "boolean" ? userAction : target.className.indexOf("ok") !== -1,
-					value: prompt.value,
+					value: params.type === "prompt" ? prompt.value : void 0,
 					vars: params.vars
 				};
 				params.callback(returnObj);
