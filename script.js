@@ -89,21 +89,21 @@ function dialog(params) {
 
 
 	// == Creating elements == //
-	var struct = {
-		"div":     ["window", "wrapper", "title", "body", "message", "prompt", "actions"],
-		"button":  ["ok", "cancel"]
-	};
-	var elms = {};
+	var parts = {
+	    	"div":     ["window", "wrapper", "title", "body", "message", "prompt", "actions"],
+	    	"button":  ["ok", "cancel"]
+	    },
+	    elms = {};
 
-	for (var i in struct) {
-		elms[i] = {};
-		for (var j in struct[i]) {
-			elms[i][struct[i][j]] = document.createElement(i);
-			elms[i][struct[i][j]].className = "dialog-" + struct[i][j];
-			if (i === "button") {
-				elms[i][struct[i][j]].className += "-button";
-				elms[i][struct[i][j]].type = "button";
-				elms[i][struct[i][j]].setAttribute("data-action", struct[i][j]);
+	for (var elemType in parts) if (parts.hasOwnProperty(elemType)) {
+		elms[elemType] = {};
+		for (var j = 0, part; part = parts[elemType][j]; j++) {
+			elms[elemType][part] = document.createElement(elemType);
+			elms[elemType][part].className = "dialog-" + part;
+			if (elemType === "button") {
+				elms[elemType][part].className += "-button";
+				elms[elemType][part].type = "button";
+				elms[elemType][part].setAttribute("data-action", part);
 			}
 		}
 	}
