@@ -37,7 +37,7 @@
  *
  * ================================================================================================
  *
- * Version: 2.1
+ * Version: 3.0
  * Copyright (c) 2015 Matteo Bernardini
  * Licensed under the MIT License (refer to the LICENSE file for further information).
  *
@@ -45,27 +45,6 @@
  * http://github.com/mttbernardin/dialog
  *
  */
-
-
-
-// Backwards compatibility with IE < 9
-if (!window.addEventListener) {
-	Object.defineProperties(Element.prototype, {
-		"addEventListener": {
-			value: function(evt, handler, capture) {
-				this.attachEvent("on"+evt, handler);
-			}
-		},
-		"removeEventListener": {
-			value: function(evt, handler, capture) {
-				this.detachEvent("on"+evt, handler);
-			}
-		},
-	});
-}
-
-
-// MAIN FUNCTION //
 
 var dialogSettings = new Object();
 
@@ -144,39 +123,38 @@ function dialog(params) {
 
 
 
-	// == Adding event listeners == //
+	// == Return promise == //
 
-	// Will be triggered when closing the dialog
-	function action(e, userAction) {
-		e = e || window.event;
-		var target = e.target ? e.target : e.srcElement;
+	return new Promise(function(resolve, reject) {
 
-		if (typeof userAction === "boolean" || target.tagName.toLowerCase() === "button") {
-			document.removeEventListener("keyup", useKeys, false);
-			document.body.removeChild(dialogWindow);
-			//Callback function if defined
-			if (params.callback) {
-				var returnObj = {
-					id: params.id,
+		// Will be triggered when closing the dialog
+		function action(e, userAction) {
+			e = e || window.event;
+			var target = e.target ? e.target : e.srcElement;
+
+			if (typeof userAction === "boolean" || target.tagName.toLowerCase() === "button") {
+				document.removeEventListener("keyup", useKeys, false);
+				document.body.removeChild(dialogWindow);
+				resolve({
+					id:     params.id,
 					action: typeof userAction === "boolean" ? userAction : target.className.indexOf("ok") !== -1,
-					value: params.type === "prompt" ? prompt.value : void 0,
-					vars: params.vars
-				};
-				params.callback(returnObj);
+					value:  params.type === "prompt" ? prompt.value : void 0,
+					vars:   params.vars
+				});
 			}
 		}
-	}
 
-	// Handler for keyboard events
-	function useKeys(e) {
-		e = e || window.event;
-		if (e.keyCode === 13) // ENTER key
-			action(null, true);
-		else if (e.keyCode === 27 && params.type !== "alert") // ESC key
-			action(null, false);
-	}
+		// Handler for keyboard events
+		function useKeys(e) {
+			e = e || window.event;
+			if (e.keyCode === 13) // ENTER key
+				action(null, true);
+			else if (e.keyCode === 27 && params.type !== "alert") // ESC key
+				action(null, false);
+		}
 
-	document.addEventListener("keyup", useKeys, false);
-	elms["actions"].addEventListener("click", action, false);
+		document.addEventListener("keyup", useKeys, false);
+		elms["actions"].addEventListener("click", action, false);
 
+	});
 }
