@@ -113,31 +113,25 @@ var parameters = {
 <p>Advanced use: using callbacks, ids and vars.</p>
 
 <pre>
-&lt;script type="text/javascript"&gt;
-var parameters = {
-	type: "prompt",
-	title: "Example",
-	content: "What's your name?",
-	callback: check,
-	id: "first",
-	vars: {foo: "bar"}
-}
-
-function check(obj) {
-	if (obj.id=="first" && obj.action)
-	dialog({
-		type: "confirm",
-		content: "Do you want your name printed on a message?",
-		vars: {foo: obj.vars.foo, name: obj.value!=""?obj.value:"Unnamed"},
-		callback: check,
-		id: "second"
-	});
-	else if (obj.id=="second" && obj.action)
-	dialog({
-		//NB: default type is alert, so we don't need to specify it
-		title: "Print out",
-		content: "Hello "+obj.vars.name+"\nFoo: "+obj.vars.foo
-	});
+&lt;script type=&quot;text/javascript&quot;&gt;
+function check(box1) {
+	if (box1.action) {
+		box1.vars.name = box1.value != &quot;&quot; ? box1.value : &quot;Unnamed&quot;;
+		dialog({
+			type: &quot;confirm&quot;,
+			content: &quot;Do you want your name printed on a message?&quot;,
+			vars: box1.vars,
+		})
+		.then(function(box2) {
+			if (box2.action) {
+				dialog({
+					//NB: default type is alert, so we don't need to specify it
+					title: &quot;Print out&quot;,
+					content: &quot;Hello &quot;+box2.vars.name+&quot;\nFoo: &quot;+box2.vars.foo
+				});
+			}
+		});
+	}
 }
 &lt;/script&gt;
 
@@ -145,27 +139,30 @@ function check(obj) {
 </pre>
 
 <script type="text/javascript">
-function check(obj) {
-	if (obj.id=="first" && obj.action)
-	dialog({
-		type: "confirm",
-		content: "Do you want your name printed on a message?",
-		vars: {foo: obj.vars.foo, name: obj.value!=""?obj.value:"Unnamed"},
-		callback: check,
-		id: "second"
-	});
-	else if (obj.id=="second" && obj.action)
-	dialog({
-		//NB: default type is alert, so we don't need to specify it
-		title: "Print out",
-		content: "Hello "+obj.vars.name+"\nFoo: "+obj.vars.foo
-	});
+function check(box1) {
+	if (box1.action) {
+		box1.vars.name = box1.value != "" ? box1.value : "Unnamed";
+		dialog({
+			type: "confirm",
+			content: "Do you want your name printed on a message?",
+			vars: box1.vars,
+		})
+		.then(function(box2) {
+			if (box2.action) {
+				dialog({
+					//NB: default type is alert, so we don't need to specify it
+					title: "Print out",
+					content: "Hello "+box2.vars.name+"\nFoo: "+box2.vars.foo
+				});
+			}
+		});
+	}
 }
 </script>
 
 <div>In action:</div>
 
-<button onclick="dialogSettings=undefined; dialog({type: 'prompt', title: 'Example', content: 'What\'s your name?', callback: check, id: 'first', vars: {foo: 'bar'}})">Try it</button>
+<button onclick="dialogSettings=undefined; dialog({type: 'prompt', title: 'Example', content: 'What\'s your name?', vars: {foo: 'bar'}}).then(check);">Try it</button>
 
 </body>
 </html>
