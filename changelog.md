@@ -1,4 +1,4 @@
-# Changelog of dialog.js versions #
+# Changelog of *dialog.js* #
 
 ## Version 3 ##
 
