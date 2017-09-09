@@ -141,7 +141,7 @@ function dialog(params) {
 					id:     params.id,
 					action: typeof userAction === "boolean" ? userAction : target.className.indexOf("ok") !== -1,
 					value:  params.type === "prompt" ? prompt.value : void 0,
-					vars:   params.vars
+					data:   params.data
 				});
 			}
 		}
