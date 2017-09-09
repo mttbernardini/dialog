@@ -1,10 +1,10 @@
 /*
  *
- * Asynchronous Modal Dialog Window, a utility which can replace the default JavaScript dialog windows for webpages (alert(), prompt(), confirm())
+ * Asynchronous Modal Dialog, a utility which can replace the default JavaScript dialog windows for webpages (alert(), prompt(), confirm())
  *
- * The program integrates 3 elements.
+ * The program integrates 3 types of objects.
  *
- * ## The first is a global Object named `dialogSettings` that you can use to modify the default behavior of the dialog windows ##
+ * ## The first is a global Object named `dialogSettings` that you can use to modify the default behavior of the dialog boxes ##
  *
  * __object_key__   __type__   __default_value__       __comment__
  * defType          string     "alert"                 default type
@@ -15,23 +15,22 @@
  * cancelText       string     "Cancel"                default content of the <cancel> button
  *
  *
- * ## The second element is the main Function, `dialog()`, which needs the following options, passed with an object as first argument ##
+ * ## The second element is the main Function, `dialog()`, which returns a Promise and takes the following options, passed with an object as first argument ##
  *
  * __object_key__   __type__   __comment__
  * type             string     type of the dialog window. Possible values are ['alert', 'prompt', 'confirm']
  * title            string     text which will be displayed as the title of the dialog window
  * content          string     message of the dialog window
  * placeholder      string     if the type is 'prompt', this will define a placeholder text for the input box
- * id               string     identifier which can be retrieved afterwards in the `returnObj`, on the callback function
- * vars             Object     object of convenience that will be returned in the `returnObj`, on the callback function
- * callback         Function   function to be called when the dialog window is closed
+ * id               string     identifier which can be referenced afterwards in the `returnObj` (see below)
+ * data             Object     object of convenience that will be referenced in the `returnObj` (see below)
  *
  *
- * ## The last one is an Object that will be returned in the callback function as first argument, named `returnObj` for convenience of this guide ##
+ * ## The last one is the resolving Object for the Promise, named `returnObj` for convenience of this guide ##
  *
  * __object_key__   __type__   __comment__
  * id               string     identifier passed when calling the `dialog()` function, defaults to undefined
- * vars             Object     same object passed with the function (NB: same reference), defaults to undefined
+ * data             Object     reference of the object passed with the `dialog()` function, defaults to undefined
  * action           boolean    `true` if the user has pressed <ok> or <continue>, `false` for <cancel>
  * value            string     if the type of the requested dialog window was "prompt" it will contain the value inserted in the input box, otherwise it will be undefined
  *
@@ -126,7 +125,6 @@ function dialog(params) {
 
 
 	// == Return promise == //
-
 	return new Promise(function(resolve, reject) {
 
 		// Will be triggered when closing the dialog
