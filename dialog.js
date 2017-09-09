@@ -46,6 +46,8 @@
  *
  */
 
+"use strict";
+
 var dialogSettings = new Object();
 
 function dialog(params) {
