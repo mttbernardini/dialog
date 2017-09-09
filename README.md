@@ -4,23 +4,23 @@
 
 This project is a light JS library providing basic modal dialogs for webpages, aiming to replace the built-in `alert()`, `prompt()` and `confirm()` which instead block JavaScript execution (hence the name "asynchronous").
 
-The library provides one function `dialog()` in the global namespace (`window`), taking as argument an object of properties.
+The library provides one function `dialog()` in the global namespace (`window`), taking as argument an object of properties and returning a `Promise` to a status object.
 
 ```js
 prop = {
 	type: "alert",
 	title: "Message",
 	content: "Hello, world!",
-	callback: myFunc // Will be called when the dialog is closed
 };
 
-dialog(prop); // Shows the dialog box
+dialog(prop).then(myFunc);
+// Shows the dialog box and calls `myFunc` after closing it
 ```
 
 
 ## How to use ##
 
-The inclusion on a project is really simple and only consist of adding the script and the default stylesheet:
+The inclusion on a project is straightforward and only consist of adding the script and the default stylesheet:
 
 ```html
 <link rel="stylesheet" type="text/css" href="/path/to/dialog_default.css">
@@ -37,23 +37,25 @@ A more detailed documentation providing examples can be found in the [wiki][1]
 
 ## Live demo ##
 
-You can see three live examples [here][3].
+You can see three live examples [here][2].
 
 
 ## Compatibility ##
 
-The codes (script and style) are compatible with all major browsers. They were tested with IE8, Chrome, Opera, Firefox and Safari Mobile, with success. The stylesheet is also W3C valid.
+The software is compatible with all major browsers. A polyfill might be needed in order to support `Promise`s, no other ES6 features are used.
+
+The stylesheet is W3C valid. A prefixer (like [-prefix-free][3]) might be needed in order to add vendor prefixes.
 
 
 ## License and sharing ##
 
-&copy; 2015 Matteo Bernardini, [@mttbernardini][4].
+© 2015 Matteo Bernardini, [@mttbernardini][4].
 
 This project is licensed under the MIT License.  
 Please refer to the LICENSE file for further information.
 
 
 [1]: https://github.com/mttbernardini/dialog/wiki
-[2]: http://github.com/mttbernardini/dialog/issues
-[3]: http://mttbernardini.github.io/dialog/demo.html
+[2]: http://mttbernardini.github.io/dialog/demo.html
+[3]: https://github.com/LeaVerou/prefixfree
 [4]: https://twitter.com/mttbernardini
