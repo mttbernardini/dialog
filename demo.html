@@ -110,29 +110,36 @@ var parameters = {
 
 <h2>Third example</h2>
 
-<p>Advanced use: using callbacks, ids and vars.</p>
+<p>Advanced use: using chaining and data carrying.</p>
 
 <pre>
-&lt;script type=&quot;text/javascript&quot;&gt;
+&lt;script type="text/javascript"&gt;
 function check(box1) {
 	if (box1.action) {
-		box1.vars.name = box1.value != &quot;&quot; ? box1.value : &quot;Unnamed&quot;;
+		box1.data.name = box1.value != "" ? box1.value : "Unnamed";
 		dialog({
-			type: &quot;confirm&quot;,
-			content: &quot;Do you want your name printed on a message?&quot;,
-			vars: box1.vars,
+			type: "confirm",
+			content: "Do you want your name printed on a message?",
+			data: box1.data,
 		})
 		.then(function(box2) {
 			if (box2.action) {
 				dialog({
 					//NB: default type is alert, so we don't need to specify it
-					title: &quot;Print out&quot;,
-					content: &quot;Hello &quot;+box2.vars.name+&quot;\nFoo: &quot;+box2.vars.foo
+					title: "Print out",
+					content: "Hello "+box2.data.name+"\nFoo: "+box2.data.foo
 				});
 			}
 		});
 	}
 }
+
+var parameters = {
+	type: "prompt",
+	title: "Example",
+	content: "What's your name?"",
+	data: {foo: "bar"}
+};
 &lt;/script&gt;
 
 &lt;button onclick="dialog(parameters).then(check)"&gt;Try it&lt;/button&gt;
@@ -141,18 +148,18 @@ function check(box1) {
 <script type="text/javascript">
 function check(box1) {
 	if (box1.action) {
-		box1.vars.name = box1.value != "" ? box1.value : "Unnamed";
+		box1.data.name = box1.value != "" ? box1.value : "Unnamed";
 		dialog({
 			type: "confirm",
 			content: "Do you want your name printed on a message?",
-			vars: box1.vars,
+			data: box1.data,
 		})
 		.then(function(box2) {
 			if (box2.action) {
 				dialog({
 					//NB: default type is alert, so we don't need to specify it
 					title: "Print out",
-					content: "Hello "+box2.vars.name+"\nFoo: "+box2.vars.foo
+					content: "Hello "+box2.data.name+"\nFoo: "+box2.data.foo
 				});
 			}
 		});
@@ -162,7 +169,7 @@ function check(box1) {
 
 <div>In action:</div>
 
-<button onclick="dialogSettings=undefined; dialog({type: 'prompt', title: 'Example', content: 'What\'s your name?', vars: {foo: 'bar'}}).then(check);">Try it</button>
+<button onclick="dialogSettings=undefined; dialog({type: 'prompt', title: 'Example', content: 'What\'s your name?', data: {foo: 'bar'}}).then(check);">Try it</button>
 
 </body>
 </html>
