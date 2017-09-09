@@ -41,7 +41,7 @@
  * Licensed under the MIT License (refer to the LICENSE file for further information).
  *
  * Check this project on GitHub:
- * http://github.com/mttbernardin/dialog
+ * https://github.com/mttbernardin/dialog
  *
  */
 

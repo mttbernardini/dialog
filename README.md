@@ -56,6 +56,6 @@ Please refer to the LICENSE file for further information.
 
 
 [1]: https://github.com/mttbernardini/dialog/wiki
-[2]: http://mttbernardini.github.io/dialog/demo.html
+[2]: https://mttbernardini.github.io/dialog/demo.html
 [3]: https://github.com/LeaVerou/prefixfree
 [4]: https://twitter.com/mttbernardini
