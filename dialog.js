@@ -1,6 +1,6 @@
 /*
  *
- * Asynchronous Modal Dialog, a utility which can replace the default JavaScript dialog windows for webpages (alert(), prompt(), confirm())
+ * dialog.js is a utility which can replace the default JavaScript dialog windows for webpages (alert(), prompt(), confirm())
  *
  * The program integrates 3 types of objects.
  *

@@ -1,4 +1,4 @@
-# Changelog of AMD versions #
+# Changelog of dialog.js versions #
 
 ## Version 3 ##
 

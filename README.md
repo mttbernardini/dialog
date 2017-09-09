@@ -1,4 +1,4 @@
-# Asynchronous Modal Dialog - AMD #
+# dialog.js #
 
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/a61ce490dd304193865a6b93f793e8b4)](https://www.codacy.com/app/mttbernardini/dialog?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=mttbernardini/dialog&amp;utm_campaign=Badge_Grade)
 
