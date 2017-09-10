@@ -8,7 +8,7 @@
 
 - Removed polyfill for `addEventListener` on IE8.
 - `dialog()` now returns a `Promise` (no more callbacks) resolving to the result object (previously known as `returnObj`).
-- renamed `vars` in `data`, both in the options for `dialog` and in the `Promise` resolved object.
+- Renamed `vars` → `data`, both in the options for `dialog` and in the `Promise` resolved object.
 
 NB: These changes break compatibility with v2.x. Please read the new documentation for further details.
 
