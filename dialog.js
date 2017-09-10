@@ -1,40 +1,5 @@
 /*
- *
  * dialog.js is a utility which can replace the default JavaScript dialog windows for webpages (alert(), prompt(), confirm())
- *
- * The program integrates 3 types of objects.
- *
- * ## The first is a global Object named `dialogSettings` that you can use to modify the default behavior of the dialog boxes ##
- *
- * __object_key__   __type__   __default_value__       __comment__
- * defType          string     "alert"                 default type
- * defTitle         string     "Message"               default title
- * defContent       string     "Missing text"          default message of the dialog
- * okText           string     "OK"                    default content of the <ok> button
- * continueText     string     "Continue"              default content of the <continue> button
- * cancelText       string     "Cancel"                default content of the <cancel> button
- *
- *
- * ## The second element is the main Function, `dialog()`, which returns a Promise and takes the following options, passed with an object as first argument ##
- *
- * __object_key__   __type__   __comment__
- * type             string     type of the dialog window. Possible values are ['alert', 'prompt', 'confirm']
- * title            string     text which will be displayed as the title of the dialog window
- * content          string     message of the dialog window
- * placeholder      string     if the type is 'prompt', this will define a placeholder text for the input box
- * id               string     identifier which can be referenced afterwards in the `returnObj` (see below)
- * data             Object     object of convenience that will be referenced in the `returnObj` (see below)
- *
- *
- * ## The last one is the resolving Object for the Promise, named `returnObj` for convenience of this guide ##
- *
- * __object_key__   __type__   __comment__
- * id               string     identifier passed when calling the `dialog()` function, defaults to undefined
- * data             Object     reference of the object passed with the `dialog()` function, defaults to undefined
- * action           boolean    `true` if the user has pressed <ok> or <continue>, `false` for <cancel>
- * value            string     if the type of the requested dialog window was "prompt" it will contain the value inserted in the input box, otherwise it will be undefined
- *
- * ================================================================================================
  *
  * Version: 3.0
  * Copyright (c) 2015 Matteo Bernardini
@@ -44,6 +9,43 @@
  * https://github.com/mttbernardin/dialog
  *
  */
+
+/**
+ * The library provides 3 types of objects.
+ *
+ * ## A global Object `dialogSettings`, used to modify the default behavior of the dialog boxes ##
+ *
+ * __object_key__   __type__   __default_value__   __comment__
+ * defType          string     "alert"             Default type
+ * defTitle         string     "Message"           Default title
+ * defContent       string     "Missing text"      Default message of the dialog
+ * okText           string     "OK"                Label for the <ok> button
+ * continueText     string     "Continue"          Label for the <continue> button
+ * cancelText       string     "Cancel"            Label for the <cancel> button
+ *
+ *
+ * ## The main Function `dialog(opt)`, returns a Promise and takes the following options as properties of the Object `opt` ##
+ *
+ * __object_key__   __type__   __comment__
+ * type             string     Type of the dialog window. Possible values are ['alert', 'prompt', 'confirm']
+ * title            string     Text which will be displayed as the title of the dialog window
+ * content          string     Message of the dialog window
+ * placeholder      string     If the type is 'prompt', this will define a placeholder text for the input box
+ * id               string     Identifier which can be referenced afterwards in the resolved object (see below)
+ * data             Object     Object of convenience that will be referenced in the resolved object (see below)
+ *
+ *
+ * ## The resolved Object of the Promise ##
+ *
+ * __object_key__   __type__   __comment__
+ * id               string     Identifier passed when calling the `dialog()` function, defaults to `undefined`
+ * data             Object     Reference of the object passed with the `dialog()` function, defaults to `undefined`
+ * action           boolean    `true` if the user has pressed <ok> or <continue>, `false` for <cancel>
+ * value            string     If the type of the requested dialog window was 'prompt' it will contain
+ *                             the value inserted in the input box, otherwise it will be `undefined`
+ *
+ */
+
 
 "use strict";
 

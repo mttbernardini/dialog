@@ -6,8 +6,8 @@
 
 *Released on 2017-09-10*
 
-- Removed polifyll for `addEventListener` on IE8.
-- `dialog()` now returns a `Promise` for the `returnObj` (no more callbacks).
+- Removed polyfill for `addEventListener` on IE8.
+- `dialog()` now returns a `Promise` (no more callbacks) resolving to the result object (previously known as `returnObj`).
 - renamed `vars` in `data`, both in the options for `dialog` and in the `Promise` resolved object.
 
 NB: These changes break compatibility with v2.x. Please read the new documentation for further details.
@@ -39,7 +39,7 @@ NB: This version drops support for older browsers and IE. Consider using polyfil
 - Reconception of the majority of the code.
 - Uploaded the project on GitHub.
 - Removed `data-*` attributes for styling, now using classes (refer to style.css file to see new classes used).
-- Renamed callBack → callback, is now a reference to a function (with `returnObj` passed as first argument), not an executable string (not `eval` anymore!).
+- Renamed callBack → callback, which is now a reference to a function (with `returnObj` passed as first argument), not an executable string (not `eval` anymore!).
 - Renamed returnObj.boolean → returnObj.action (same behavior).
 - Title and content can't contain HTML anymore. However LF characters and whitespaces are preserved.
 - Adding to the DOM only the visible elements (removed `display: none` hack).
@@ -54,7 +54,7 @@ NB: These changes break compatibility with v1.x. Please read the new documentati
 
 *Released on 2012-13-09*
 
-- Fixed a problem with the xhtml syntax. Now the function works good both in html and xhtml, automatically.
+- Fixed a problem with the XHTML syntax. Now the function works good both in HTML and XHTML, automatically.
 
 ### 1.0 ###
 

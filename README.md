@@ -2,9 +2,9 @@
 
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/a61ce490dd304193865a6b93f793e8b4)](https://www.codacy.com/app/mttbernardini/dialog?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=mttbernardini/dialog&amp;utm_campaign=Badge_Grade)
 
-This project is a light JS library providing basic modal dialogs for webpages, aiming to replace the built-in `alert()`, `prompt()` and `confirm()` which instead block JavaScript execution (hence the name "asynchronous").
+This project is a light JS library providing basic asynchronous modal dialogs for webpages, aiming to replace the built-in `alert()`, `prompt()` and `confirm()` which instead block JavaScript execution.
 
-The library provides one function `dialog()` in the global namespace (`window`), taking as argument an object of properties and returning a `Promise` to a status object.
+The library provides one function `dialog()` in the global namespace (`window`), taking as argument an object of properties and returning a `Promise` resolving to the result object.
 
 ```js
 prop = {
