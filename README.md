@@ -1,6 +1,7 @@
 # dialog.js #
 
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/a61ce490dd304193865a6b93f793e8b4)](https://www.codacy.com/app/mttbernardini/dialog?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=mttbernardini/dialog&amp;utm_campaign=Badge_Grade)
+[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Fmttbernardini%2Fdialog.svg?type=shield)](https://app.fossa.com/projects/git%2Bgithub.com%2Fmttbernardini%2Fdialog?ref=badge_shield)
 
 This project is a light JS library providing basic asynchronous modal dialogs for webpages, aiming to replace the built-in `alert()`, `prompt()` and `confirm()` which instead block JavaScript execution.
 
@@ -59,3 +60,6 @@ Please refer to the LICENSE file for further information.
 [2]: https://mttbernardini.github.io/dialog/demo.html
 [3]: https://github.com/LeaVerou/prefixfree
 [4]: https://twitter.com/mttbernardini
+
+
+[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Fmttbernardini%2Fdialog.svg?type=large)](https://app.fossa.com/projects/git%2Bgithub.com%2Fmttbernardini%2Fdialog?ref=badge_large)
